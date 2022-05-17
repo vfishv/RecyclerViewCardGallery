@@ -27,9 +27,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation ('jameson.io.library:library:0.0.1') {
-        exclude group: "com.android.support", module: "support-v4"
-    }
+//    implementation ('jameson.io.library:library:0.0.1') {
+//        exclude group: "com.android.support", module: "support-v4"
+//    }
     testImplementation 'junit:junit:4.13.2'
     implementation project(':library')
 }

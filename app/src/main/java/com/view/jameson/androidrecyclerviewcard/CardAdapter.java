@@ -11,7 +11,6 @@ import com.view.jameson.library.CardAdapterHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import jameson.io.library.util.ToastUtils;
 
 /**
  * Created by jameson on 8/30/16.
@@ -32,13 +31,13 @@ class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder,final int position) {
         mCardAdapterHelper.onBindViewHolder(holder.itemView, position, getItemCount());
         holder.mImageView.setImageResource(mList.get(position));
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.show(holder.mImageView.getContext(), "" + position);
+                //ToastUtils.show(holder.mImageView.getContext(), "" + position);
             }
         });
     }

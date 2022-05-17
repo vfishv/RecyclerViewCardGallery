@@ -3,15 +3,15 @@ package com.view.jameson.library;
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
-
-import jameson.io.library.util.LogUtils;
-import jameson.io.library.util.ScreenUtil;
 
 /**
  * Created by jameson on 8/30/16.
  */
 public class CardScaleHelper {
+    private static final String TAG = "CardScaleHelper";
+
     private RecyclerView mRecyclerView;
     private Context mContext;
 
@@ -30,7 +30,7 @@ public class CardScaleHelper {
 
     public void attachToRecyclerView(final RecyclerView mRecyclerView) {
         // 开启log会影响滑动体验, 调试时才开启
-        LogUtils.mLogEnable = false;
+        //LogUtils.mLogEnable = false;
         this.mRecyclerView = mRecyclerView;
         mContext = mRecyclerView.getContext();
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -51,7 +51,7 @@ public class CardScaleHelper {
                 if(dx != 0){//去掉奇怪的内存疯涨问题
                     mCurrentItemOffset += dx;
                     computeCurrentItemPos();
-                    LogUtils.v(String.format("dx=%s, dy=%s, mScrolledX=%s", dx, dy, mCurrentItemOffset));
+                    Log.v(TAG, String.format("dx=%s, dy=%s, mScrolledX=%s", dx, dy, mCurrentItemOffset));
                     onScrolledChangedCallback();
                 }
             }
@@ -69,7 +69,7 @@ public class CardScaleHelper {
             @Override
             public void run() {
                 mCardGalleryWidth = mRecyclerView.getWidth();
-                mCardWidth = mCardGalleryWidth - ScreenUtil.dip2px(mContext, 2 * (mPagePadding + mShowLeftCardWidth));
+                mCardWidth = mCardGalleryWidth - DensityUtil.dip2px(mContext, 2 * (mPagePadding + mShowLeftCardWidth));
                 mOnePageWidth = mCardWidth;
                 mRecyclerView.smoothScrollToPosition(mCurrentItemPos);
                 onScrolledChangedCallback();
@@ -103,7 +103,7 @@ public class CardScaleHelper {
             int tempPos = mCurrentItemPos;
 
             mCurrentItemPos = mCurrentItemOffset / mOnePageWidth;
-            LogUtils.d(String.format("=======onCurrentItemPos Changed======= tempPos=%s, mCurrentItemPos=%s", tempPos, mCurrentItemPos));
+            Log.d(TAG, String.format("=======onCurrentItemPos Changed======= tempPos=%s, mCurrentItemPos=%s", tempPos, mCurrentItemPos));
         }
     }
 
@@ -114,7 +114,7 @@ public class CardScaleHelper {
         int offset = mCurrentItemOffset - mCurrentItemPos * mOnePageWidth;
         float percent = (float) Math.max(Math.abs(offset) * 1.0 / mOnePageWidth, 0.0001);
 
-        LogUtils.d(String.format("offset=%s, percent=%s", offset, percent));
+        Log.d(TAG, String.format("offset=%s, percent=%s", offset, percent));
         View leftView = null;
         View currentView;
         View rightView = null;
